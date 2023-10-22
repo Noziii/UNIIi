@@ -1,43 +1,80 @@
-import React, { useState } from "react";
-import { Text, View } from "react-native";
-import { Calendar } from "react-native-calendars";
+import React from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Linking,
+} from "react-native";
 
-const events = [
-  { title: "Wits Freshers", date: "2023-10-01" },
-  { title: "Event 2", date: "2023-10-01" },
-  { title: "Event 3", date: "2023-10-02" },
-  { title: "Event 4", date: "2023-10-03" },
-];
-
-const CampusEvents = () => {
-  const [selectedDate, setSelectedDate] = useState(
-    new Date().toISOString().slice(0, 10)
-  );
-
-  const getEventsForDay = (date) => {
-    return events.filter((event) => event.date === date);
+class ClickableCard extends React.Component {
+  handleCardClick = () => {
+    // Handle the click event to open an external website
+    Linking.openURL(this.props.externalLink);
   };
 
-  const onDayPress = (day) => {
-    setSelectedDate(day.dateString);
-  };
+  render() {
+    return (
+      <TouchableOpacity onPress={this.handleCardClick} style={styles.card}>
+        <Text style={styles.cardText}>{this.props.cardText}</Text>
+      </TouchableOpacity>
+    );
+  }
+}
 
-  return (
-    <View>
-      <Calendar
-        style={{
-          borderRadius: 3,
-          borderColor: "gray",
-          height: 350,
-        }}
-        onDayPress={onDayPress}
-      />
-      <Text>Events for {selectedDate}:</Text>
-      {getEventsForDay(selectedDate).map((event, index) => (
-        <Text key={index}>{event.title}</Text>
-      ))}
-    </View>
-  );
-};
+class App extends React.Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <ClickableCard
+          cardText="80 Jorissen Student  (Campus Africa)"
+          externalLink="https://www.campusafrica.co.za/"
+        />
+        <ClickableCard
+          cardText="AFHCO HOLDINGS (PTY)LTD"
+          externalLink="https://afhco.co.za/to-%20let/student/"
+        />
+        <ClickableCard
+          cardText="BU PROPERTY CC"
+          externalLink="http://www.staydunwell.co.za/"
+        />
+        <ClickableCard
+          cardText="DUNWELL
+          PROPERTIES CC"
+          externalLink="http://www.staydunwell.co.za/"
+        />
 
-export default CampusEvents;
+        <ClickableCard
+          cardText="BRAAMLOFTS STUDENT
+          
+          (CAMPUS AFRICA)"
+          externalLink="https://www.campusafrica.co.za/"
+        />
+      </View>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#ffb253",
+  },
+  card: {
+    width: 300,
+    height: 100,
+    backgroundColor: "white",
+    borderRadius: 10,
+    margin: 10,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  cardText: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+});
+
+export default App;
