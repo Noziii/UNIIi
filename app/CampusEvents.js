@@ -74,6 +74,15 @@ const styles = StyleSheet.create({
     padding: 16,
     margin: 13,
     borderRadius: 8,
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 5,
+      height: 5,
+    },
+    shadowOpacity: 0.75,
+    shadowRadius: 5,
+    elevation: 9,
   },
   selectedDate: {
     fontSize: 18,
